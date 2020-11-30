@@ -30,7 +30,7 @@ def grabNumber():
             major=int(input('Type your major (in number) :'))
         except Exception as e:
             print('Error: Wrong input. Please type an integer')
-    print('Major: %s'%programs[i-1])
+    print('Major: %s'%programs[major-1])
     return major
 
 def addCourse(course_dict,maxcred=54):
@@ -97,7 +97,7 @@ def coreClasses(major):
         print(msppmDACoreClasses)
         return msppmDACoreClasses
 
-    
+
    ##<<
 
 def main():
