@@ -4,17 +4,18 @@ from bs4 import BeautifulSoup
 
 
 ##########************************************
-link='https://www.heinz.cmu.edu/programs/'
-page =\
-requests.get(link)
-#print(link)
-soup = BeautifulSoup(page.content, 'html.parser')
-programs=soup.find(id="js-programs")
-programs=programs.get_text()
-programs=programs.split('Program')
-programs=[x.split(')')[0] for x in programs]
-programs=[x for x in programs if 'Overview' not in x and '(' in x]
-programs=[x+')' for x in programs if len(x)>7]
+def program():
+    link='https://www.heinz.cmu.edu/programs/'
+    page =\
+    requests.get(link)
+    #print(link)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    programs=soup.find(id="js-programs")
+    programs=programs.get_text()
+    programs=programs.split('Program')
+    programs=[x.split(')')[0] for x in programs]
+    programs=[x for x in programs if 'Overview' not in x and '(' in x]
+    programs=[x+')' for x in programs if len(x)>7]
 ############***********************************
 
 def grabNumber():
