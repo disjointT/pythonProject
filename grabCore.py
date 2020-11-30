@@ -18,7 +18,7 @@ programs=[x+')' for x in programs if len(x)>7]
 ############***********************************
 
 def grabNumber():
-    print('Majors')
+    print('Majors:')
     print('-'*40)
     programs=['Information Systems Management (MISM)','Business Intelligence & Data Analytics (BIDA)','Public Policy & Management (MSPPM)','Public Policy & Data Analytics (MSPPM-DA)']
     for i in range(len(programs)):
