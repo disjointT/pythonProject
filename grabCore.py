@@ -34,7 +34,7 @@ def grabNumber():
     return major
 
 def addCourse(course_dict,maxcred=54):
-    add=input('Do you wanna add a class? Y/N :')
+    add=input('Do you wanna add a class? (Y/N) :')
     units=0
     courses=[]
     if add.upper()=='Y' or 'Y' in add.upper():
