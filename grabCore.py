@@ -8,14 +8,22 @@ def program():
     link='https://www.heinz.cmu.edu/programs/'
     page =\
     requests.get(link)
-    #print(link)
+    #find programs names
     soup = BeautifulSoup(page.content, 'html.parser')
-    programs=soup.find(id="js-programs")
-    programs=programs.get_text()
+    programs1=soup.find(id="js-programs")
+    programs=programs1.get_text()
     programs=programs.split('Program')
     programs=[x.split(')')[0] for x in programs]
     programs=[x for x in programs if 'Overview' not in x and '(' in x]
     programs=[x+')' for x in programs if len(x)>7]
+
+    hyperlinks=[]
+    #find links
+    for program in programs:
+        content=programs1.find(title=program)
+        hplink='https://www.heinz.cmu.edu'+content['href']
+        hyperlinks.append(hplink)
+    return programs,hplink
 ############***********************************
 
 def grabNumber():
@@ -102,6 +110,7 @@ def coreClasses(major):
    ##<<
 
 def main():
+    #programs,hplink=program()
     major=grabNumber()
     print('Core:')
     core=coreClasses(major)
