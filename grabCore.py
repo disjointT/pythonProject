@@ -50,27 +50,7 @@ def addCourse(course_dict,maxcred=54):
                 courses.append(add)
     return course,units
 
-def create_course_Dict(outputs):
-    course_dict={}
-    for courseID,course_title,course_description,units in outputs:
-        info={'title':course_title,'description':course_description,'units':course_units}
-        course_dict[courseID]=info
-    return course_dict
-
-def major_class(output1,output2):
-    #assume output1 is in the form of lists of major ,[ core class1,..].
-    #assume output2 is in the form of lists of major ,[elective1,...]
-    major_dict={}
-    for major, core_classes in output1:
-        info={}
-        info['core']=core_classes
-        major_dict[major]=info
-    for major, electives in output2:
-        info=major_dict[major]
-        info['electives']=electives
-        major_dict[major]=info
-    return major_dict
-
+###> Shailey's code:
 def coreClasses(major):
     mismCoreClasses = list()
     mismBidaCoreClasses = list()
@@ -117,6 +97,8 @@ def coreClasses(major):
         print(msppmDACoreClasses)
         return msppmDACoreClasses
 
+    
+   ##<<
 
 def main():
     major=grabNumber()
