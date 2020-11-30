@@ -43,7 +43,7 @@ def grabNumber():
     return major
 
 
-###> Shailey's code:
+###> Shaily's code:
 def coreClasses(major):
     mismCoreClasses = list()
     mismBidaCoreClasses = list()
@@ -55,9 +55,12 @@ def coreClasses(major):
         soup = BeautifulSoup(page.content, 'html.parser')
         mismCore = soup.find(id='825899-accordion')
         coreCourses = mismCore.find(class_= 'user-markup')
-        for classes in coreCourses.find_all('li'):
+        count = 0
+        for classes in coreCourses.find_all('li'): 
             mismCoreClasses.append(classes.text.replace('\xa0', ' '))
-        print(mismCoreClasses)
+        for course in mismCoreClasses:
+            count += 1
+            print('%2d. %s' % (count, course))
         return mismCoreClasses
     if(major == 2):
         page =\
@@ -65,9 +68,12 @@ def coreClasses(major):
         soup = BeautifulSoup(page.content, 'html.parser')
         mismBidaCore = soup.find(id='99728-accordion')
         coreCourses = mismBidaCore.find(class_= 'user-markup')
-        for classes in coreCourses.find_all('li'):
+        count = 0
+        for classes in coreCourses.find_all('li'): 
             mismBidaCoreClasses.append(classes.text.replace('\xa0', ' '))
-        print(mismBidaCoreClasses)
+        for course in mismBidaCoreClasses:
+            count += 1
+            print('%2d. %s' % (count, course))
         return mismBidaCoreClasses
     if(major == 3):
         page =\
@@ -75,9 +81,12 @@ def coreClasses(major):
         soup = BeautifulSoup(page.content, 'html.parser')
         msppmCore = soup.find(id='675743-accordion')
         coreCourses = msppmCore.find(class_= 'user-markup')
-        for classes in coreCourses.find_all('li'):
+        count = 0
+        for classes in coreCourses.find_all('li'): 
             msppmCoreClasses.append(classes.text.replace('\xa0', ' '))
-        print(msppmCoreClasses)
+        for course in msppmCoreClasses:
+            count += 1
+            print('%2d. %s' % (count, course))
         return msppmCoreClasses
     if(major == 4):
         page =\
@@ -85,17 +94,19 @@ def coreClasses(major):
         soup = BeautifulSoup(page.content, 'html.parser')
         msppmDACore = soup.find(id='43546-accordion')
         coreCourses = msppmDACore.find(class_= 'user-markup')
-        for classes in coreCourses.find_all('li'):
+        count = 0
+        for classes in coreCourses.find_all('li'): 
             msppmDACoreClasses.append(classes.text.replace('\xa0', ' '))
-        print(msppmDACoreClasses)
-        return msppmDACoreClasses
-   ##<<
-
-
+        for course in msppmDACoreClasses:
+            count += 1
+            print('%2d. %s' % (count, course))
+        return msppmDACoreClasses  
+        
 def main():
     programs,hplink=program()
     major=grabNumber()
-    print('Core:')
+    print('Major Core Classes:')
+    print('-------------------')
     core=coreClasses(major)
     #test cases
     #course_dict={'1':{'title':'abc','units':32,'description':""},'2':{'title':' df','units':22,'description':' '},'3':{'title':' d','units':2,'description':' '},'4':{'title':' d','units':12,'description':' '}}
