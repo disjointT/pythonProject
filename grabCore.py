@@ -36,7 +36,7 @@ def grabNumber():
     while major not in range(1,len(programs)+1):
         print('\nType an integer from 1 to %d'%len(programs))
         try:
-            major=int(input('Type your major (in number) :'))
+            major=int(input('Type your major (in number): '))
         except Exception as e:
             print('Error: Wrong input. Please type an integer')
     print('Major: %s'%programs[major-1])
@@ -105,8 +105,6 @@ def coreClasses(major):
             msppmDACoreClasses.append(classes.text.replace('\xa0', ' '))
         print(msppmDACoreClasses)
         return msppmDACoreClasses
-
-
    ##<<
 
 def main():
