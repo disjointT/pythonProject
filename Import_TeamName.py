@@ -227,12 +227,13 @@ def main():
     print('Major Core Classes:')
     print('-------------------')
     core = coreClasses(major)
-    if major == 1 or major == 2:
-        program = 2
+    print()
+    print('Major Elective Classes:')
+    print('-----------------------')
+    if (major == 1 or major == 2):
         elective_list=electiveMism()
         print(elective_list)
-    if major == 3 or major == 4:
-        program = 1
+    if (major == 3 or major == 4):
         elective_list=electiveMsppm()
         print(elective_list)
 
@@ -253,6 +254,7 @@ def main():
         page = requests.get(url)
         tree = html.fromstring(page.content)
         whole_text = tree.xpath('//*[@id="container-fluid"]/div/div[2]/p/text()')
+
         #description is entry after first blank entry
         descr = whole_text[whole_text.index(' ')+1]
 
@@ -277,11 +279,11 @@ def main():
         time.sleep(0.02)
         print('.')
     with open('schedule.csv','w') as f:
-        f.write(' ,total units, %d/%d\n'%(units,maxcred))
         f.write('Course Number,Title,Units\n')
         for c in schedule:
             d=course_dict[c]
             f.write('%s,%s,%d \n'%(c,d['Title'],d['Units']))
+        f.write(' ,total units, %d/%d\n'%(units,maxcred))
 
 if __name__ == '__main__':
     main()
