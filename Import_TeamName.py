@@ -227,11 +227,11 @@ def main():
     print('Major Core Classes:')
     print('-------------------')
     core = coreClasses(major)
-    if (major == 1 | major == 2):
+    if major == 1 or major == 2:
         program = 2
         elective_list=electiveMism()
         print(elective_list)
-    if (major == 3 | major == 4):
+    if major == 3 or major == 4:
         program = 1
         elective_list=electiveMsppm()
         print(elective_list)
@@ -253,7 +253,6 @@ def main():
         page = requests.get(url)
         tree = html.fromstring(page.content)
         whole_text = tree.xpath('//*[@id="container-fluid"]/div/div[2]/p/text()')
-
         #description is entry after first blank entry
         descr = whole_text[whole_text.index(' ')+1]
 
