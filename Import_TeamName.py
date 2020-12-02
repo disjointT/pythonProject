@@ -91,6 +91,27 @@ def coreClasses(major):
             print('%2d. %s' % (count, course))
         return msppmDACoreClasses
 
+
+def read_dict():
+    course_dict={}
+    f=open('course_dict.txt')
+    for line in f.readlines():
+        line=line.split('=')
+        val=line[1]
+        val=val.strip('{')
+        val=val.strip('}')
+        val=val.split('$')
+        vals={}
+        for item in val:
+            item=item.split(':')
+            if len(item)>1:
+                vals[item[0]]=item[1]
+                if item[0]=='Units':
+                    vals[item[0]]=int(vals[item[0]])
+        course_dict[line[0]]=vals
+    return course_dict
+
+
 def electiveMsppm():
 
     """
@@ -230,47 +251,13 @@ def main():
     print()
     print('Major Elective Classes:')
     print('-----------------------')
-    if (major == 1 or major == 2):
+    if major == 1 or major == 2:
         elective_list=electiveMism()
         print(elective_list)
-    if (major == 3 or major == 4):
+    if major == 3 or major == 4:
         elective_list=electiveMsppm()
         print(elective_list)
-
-    #get course data from main list
-    url = 'https://api.heinz.cmu.edu/courses_api/course_list/'
-    page = requests.get(url)
-    tree = html.fromstring(page.content)
-
-    #pull out needed fields
-    course_numbers = tree.xpath('//*[@class="clickable-row"]/td[1]/a/text()')
-    course_names = tree.xpath('//*[@class="clickable-row"]/td[2]/text()')
-    course_units = tree.xpath('//*[@class="clickable-row"]/td[3]/text()')
-    course_units = list(map(int, course_units)) #make ints in case math later
-    #get course details using new urls
-    course_descr = []
-    for num in course_numbers:
-        url = 'https://api.heinz.cmu.edu/courses_api/course_detail/' + num
-        page = requests.get(url)
-        tree = html.fromstring(page.content)
-        whole_text = tree.xpath('//*[@id="container-fluid"]/div/div[2]/p/text()')
-
-        #description is entry after first blank entry
-        descr = whole_text[whole_text.index(' ')+1]
-
-        #Remove weird char
-        descr = descr.replace('\xa0','')
-
-        #add to descr list
-        course_descr.append(descr)
-
-    #create searchable dictionary (keys: (name, num) & values: (units, descr))
-    zipped = list(zip(course_names, course_units, course_descr))
-    values = list(map(lambda x:{'Title': x[0], 'Units': x[1], 'Description': x[2]},
-                    zipped))
-
-    course_dict = dict(zip(course_numbers,values))
-
+    course_dict=read_dict()
     #creates schedule by calling addcourse function
     schedule,units,maxcred = addCourse(course_dict)
     time.sleep(0.5)
