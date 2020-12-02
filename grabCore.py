@@ -56,7 +56,7 @@ def coreClasses(major):
         mismCore = soup.find(id='825899-accordion')
         coreCourses = mismCore.find(class_= 'user-markup')
         count = 0
-        for classes in coreCourses.find_all('li'): 
+        for classes in coreCourses.find_all('li'):
             mismCoreClasses.append(classes.text.replace('\xa0', ' '))
         for course in mismCoreClasses:
             count += 1
@@ -69,7 +69,7 @@ def coreClasses(major):
         mismBidaCore = soup.find(id='99728-accordion')
         coreCourses = mismBidaCore.find(class_= 'user-markup')
         count = 0
-        for classes in coreCourses.find_all('li'): 
+        for classes in coreCourses.find_all('li'):
             mismBidaCoreClasses.append(classes.text.replace('\xa0', ' '))
         for course in mismBidaCoreClasses:
             count += 1
@@ -82,7 +82,7 @@ def coreClasses(major):
         msppmCore = soup.find(id='675743-accordion')
         coreCourses = msppmCore.find(class_= 'user-markup')
         count = 0
-        for classes in coreCourses.find_all('li'): 
+        for classes in coreCourses.find_all('li'):
             msppmCoreClasses.append(classes.text.replace('\xa0', ' '))
         for course in msppmCoreClasses:
             count += 1
@@ -95,22 +95,19 @@ def coreClasses(major):
         msppmDACore = soup.find(id='43546-accordion')
         coreCourses = msppmDACore.find(class_= 'user-markup')
         count = 0
-        for classes in coreCourses.find_all('li'): 
+        for classes in coreCourses.find_all('li'):
             msppmDACoreClasses.append(classes.text.replace('\xa0', ' '))
         for course in msppmDACoreClasses:
             count += 1
             print('%2d. %s' % (count, course))
-        return msppmDACoreClasses  
-        
+        return msppmDACoreClasses
+
 def main():
     programs,hplink=program()
     major=grabNumber()
     print('Major Core Classes:')
     print('-------------------')
     core=coreClasses(major)
-    #test cases
-    #course_dict={'1':{'title':'abc','units':32,'description':""},'2':{'title':' df','units':22,'description':' '},'3':{'title':' d','units':2,'description':' '},'4':{'title':' d','units':12,'description':' '}}
-    #addCourse(course_dict)
 
 if __name__ == '__main__':
     main()

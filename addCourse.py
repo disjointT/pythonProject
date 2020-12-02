@@ -57,8 +57,11 @@ def addCourse(course_dict,maxcred=54):
 
 def main():
     schedule,units,maxcred=addCourse(course_dict)
-    time.sleep(1)
-    print('generating schedule.................')
+    time.sleep(0.5)
+    print('generating schedule')
+    for i in range(10):
+        time.sleep(0.02)
+        print('.')
     with open('schedule.csv','w') as f:
         f.write(' ,total units, %d/%d\n'%(units,maxcred))
         f.write('Course Number,Title,Units\n')
