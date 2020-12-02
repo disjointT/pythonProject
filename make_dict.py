@@ -13,7 +13,6 @@ course_names = tree.xpath('//*[@class="clickable-row"]/td[2]/text()')
 
 course_units = tree.xpath('//*[@class="clickable-row"]/td[3]/text()')
 course_units = list(map(int, course_units)) #make ints in case math later
-print('yes')
 
 #get course details using new urls
 course_descr = []
@@ -30,8 +29,6 @@ for num in course_numbers:
     descr = descr.replace('\xa0','')
     #add to descr list
     course_descr.append(descr)
-
-print('yes')
 
 #create searchable dictionary (keys: (name, num) & values: (units, descr))
 zipped = list(zip(course_names, course_units, course_descr))
