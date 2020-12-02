@@ -8,7 +8,6 @@ tree = html.fromstring(page.content)
 
 #pull out needed fields
 course_numbers = tree.xpath('//*[@class="clickable-row"]/td[1]/a/text()')
-print('yes')
 course_names = tree.xpath('//*[@class="clickable-row"]/td[2]/text()')
 
 course_units = tree.xpath('//*[@class="clickable-row"]/td[3]/text()')
