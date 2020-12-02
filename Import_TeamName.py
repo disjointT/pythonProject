@@ -203,45 +203,63 @@ def search(course_dict,course_num):
     print('Description:',query['Description'])
 
 
-def addCourse(course_dict,maxcred=54):
-    add=input('Do you wanna add a class? (Y/N): ')
+def addDropCourse(course_dict,maxcred=54):
     units=0
     courses=[]
-    print(courses)
-    if add.upper()=='Y' or 'Y' in add.upper():
-        while add.upper()!='DONE' and units<=maxcred:
-            add = str(input('\nType course number XX-XXX (type DONE when finished):'))
-            if add.upper()=='DONE':
-                break
-            elif add not in course_dict.keys():
-                print('Invalid course number! Try again')
-            elif add in courses:
-                print('current courses: '+str(courses))
-                print('You already have this class on your schedule. ')
-            elif units+course_dict[add]['Units']>maxcred:
-                print('Adding this course would exceed your maximum units.')
-            else:
-                search(course_dict, add)
-                adding=input('\nDo you want to add this class? Y/N ')
-                while adding.upper() not in ['Y','N']:
+    add=input('Add/Drop classes (A/D), type quit when finished: ')
+    while add.lower()!='quit':
+        if add.upper()=='A' or 'A' in add.upper():
+            while add.upper()!='DONE' and units<=maxcred:
+                add = str(input('\nAdd course number XX-XXX (type DONE when finished): '))
+                if add.upper()=='DONE':
+                    break
+                elif add not in course_dict.keys():
+                    print('Invalid course number! Try again')
+                elif add in courses:
+                    print('current courses: '+str(courses))
+                    print('You already have this class on your schedule. ')
+                    drop=str(input('\nDo you wanna drop this class? '))
+                    if drop.upper()=='Y' or 'Y' in drop.upper():
+                        courses.remove(add)
+                elif units+course_dict[add]['Units']>maxcred:
+                    print('Adding this course would exceed your maximum units.')
+                else:
+                    search(course_dict, add)
+                    adding=input('\nDo you want to add this class? Y/N ')
+                    while adding.upper() not in ['Y','N']:
+                        if adding.upper()=='Y':
+                            units+=course_dict[add]['Units']
+                            courses.append(add)
+                            print('current courses: '+str(courses))
+                            print('current units: '+str(units)+'/%d'%maxcred)
+                        adding=input('Do you want to add this class? Y/N ')
                     if adding.upper()=='Y':
                         units+=course_dict[add]['Units']
                         courses.append(add)
                         print('current courses: '+str(courses))
                         print('current units: '+str(units)+'/%d'%maxcred)
-                    adding=input('Do you want to add this class? Y/N ')
-                if adding.upper()=='Y':
-                    units+=course_dict[add]['Units']
-                    courses.append(add)
+        if add.upper()=='D' or 'D' in add.upper():
+            print('current courses: '+str(courses))
+            print('current units: '+str(units)+'/%d'%maxcred)
+            while add.upper()!='DONE':
+                add = str(input('\nDrop course number XX-XXX (type DONE when finished): '))
+                if add.upper()=='DONE':
+                    break
+                elif add not in course_dict.keys():
+                    print('Invalid course number! Try again')
+                elif add in courses:
+                    drop=str(input('\nDo you wanna drop this class? '))
+                    if drop.upper()=='Y' or 'Y' in drop.upper():
+                        courses.remove(add)
                     print('current courses: '+str(courses))
                     print('current units: '+str(units)+'/%d'%maxcred)
+                else:
+                    print('You don\'t have this class on your schedule.')
+        add=input('Add/Drop classes (A/D), type quit when finished:')
+
 
     courses.sort()
     return courses,units,maxcred
-
-
-
-
 
 def main():
     major = grabNumber()
@@ -251,15 +269,15 @@ def main():
     print()
     print('Major Elective Classes:')
     print('-----------------------')
-    if major == 1 or major == 2:
-        elective_list=electiveMism()
-        print(elective_list)
-    if major == 3 or major == 4:
-        elective_list=electiveMsppm()
-        print(elective_list)
+    #if major == 1 or major == 2:
+    #    elective_list=electiveMism()
+    #    print(elective_list)
+    #if major == 3 or major == 4:
+    #    elective_list=electiveMsppm()
+    #    print(elective_list)
     course_dict=read_dict()
     #creates schedule by calling addcourse function
-    schedule,units,maxcred = addCourse(course_dict)
+    schedule,units,maxcred = addDropCourse(course_dict)
     time.sleep(0.5)
     print('generating schedule')
     for i in range(10):
