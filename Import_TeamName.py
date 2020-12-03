@@ -225,14 +225,10 @@ def addDropCourse(course_dict,maxcred=54):
                     print('Adding this course would exceed your maximum units.')
                 else:
                     search(course_dict, add)
-                    adding=input('\nDo you want to add this class to your schedule? Y/N ')
+                    adding=input('\nDo you want to add this class to your schedule? Y/N: ')
                     while adding.upper() not in ['Y','N']:
-                        if adding.upper()=='Y':
-                            units+=course_dict[add]['Units']
-                            courses.append(add)
-                            print('*Current courses in planned schedule: '+str(courses))
-                            print('*Current units in planned schedule: '+str(units)+'/%d'%maxcred)
-                        adding=input('Do you want to add this class to your schedule? Y/N ')
+                        print('Invalid input - Please try again')
+                        adding=input('Do you want to add this class to your schedule? Y/N: ')
                     if adding.upper()=='Y':
                         units+=course_dict[add]['Units']
                         courses.append(add)
@@ -249,7 +245,10 @@ def addDropCourse(course_dict,maxcred=54):
                     elif drop not in course_dict.keys():
                         print('Invalid course number! Try again')
                     elif drop in courses:
-                        dropping = str(input('\nDo you want to drop this class from your schedule? '))
+                        dropping = str(input('\nDo you want to drop this class from your schedule? Y/N: '))
+                        while dropping.upper() not in ['Y','N']:
+                            print('Invalid input - Please try again')
+                            dropping = str(input('\nDo you want to drop this class from your schedule? Y/N: '))
                         if dropping.upper()=='Y' or 'Y' in dropping.upper():
                             courses.remove(drop)
                             print('*Current courses in planned schedule: '+str(courses))
@@ -263,8 +262,6 @@ def addDropCourse(course_dict,maxcred=54):
 
     courses.sort()
     return courses,units,maxcred
-
-
 
 
 def main():
