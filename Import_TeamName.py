@@ -204,13 +204,14 @@ def search(course_dict,course_num):
 
 
 def addDropCourse(course_dict,maxcred=54):
+def addDropCourse(course_dict,maxcred=54):
     units=0
     courses=[]
-    add=input('Search for classes you would like to Add/Drop(A/D), type quit when finished: ')
+    add=input('Would you like to Add or Drop (A/D) a course, type quit when finished: ')
     while add.lower()!='quit':
         if add.upper()=='A' or 'A' in add.upper():
             while add.upper()!='DONE' and units<=maxcred:
-                add = str(input('\nAdd course number XX-XXX (type DONE when finished): '))
+                add = str(input('\nSearch for a course number to add XX-XXX (type DONE when finished): '))
                 if add.upper()=='DONE':
                     break
                 elif add not in course_dict.keys():
@@ -218,7 +219,7 @@ def addDropCourse(course_dict,maxcred=54):
                 elif add in courses:
                     print('current courses: '+str(courses))
                     print('You already have this class on your schedule. ')
-                    drop=str(input('\nDo you wanna drop this class? '))
+                    drop=str(input('\nDo you want to drop this class? '))
                     if drop.upper()=='Y' or 'Y' in drop.upper():
                         courses.remove(add)
                 elif units+course_dict[add]['Units']>maxcred:
@@ -242,40 +243,48 @@ def addDropCourse(course_dict,maxcred=54):
             print('current courses: '+str(courses))
             print('current units: '+str(units)+'/%d'%maxcred)
             while add.upper()!='DONE':
-                add = str(input('\nDrop course number XX-XXX (type DONE when finished): '))
+                add = str(input('\nSearch for a course number to drop XX-XXX (type DONE when finished): '))
                 if add.upper()=='DONE':
                     break
                 elif add not in course_dict.keys():
                     print('Invalid course number! Try again')
                 elif add in courses:
-                    drop=str(input('\nDo you wanna drop this class? '))
+                    drop=str(input('\nDo you want to drop this class? '))
                     if drop.upper()=='Y' or 'Y' in drop.upper():
                         courses.remove(add)
                     print('current courses: '+str(courses))
                     print('current units: '+str(units)+'/%d'%maxcred)
                 else:
                     print('You don\'t have this class on your schedule.')
-        add=input('Add/Drop classes (A/D), type quit when finished:')
+        add=input('Would you like to Add or Drop (A/D) a course, type quit when finished: ')
 
 
     courses.sort()
     return courses,units,maxcred
 
+
+
+
+
 def main():
     major = grabNumber()
-    print('Major Core Classes:')
+    print('\nMajor Core Classes:')
     print('-------------------')
-    core = coreClasses(major)
+    coreClasses(major)
     print()
     print('Major Elective Classes:')
     print('-----------------------')
-    #if major == 1 or major == 2:
-    #    elective_list=electiveMism()
-    #    print(elective_list)
-    #if major == 3 or major == 4:
-    #    elective_list=electiveMsppm()
-    #    print(elective_list)
+    if (major == 1 or major == 2):
+        elective_list=electiveMism()
+        print(elective_list)
+    if (major == 3 or major == 4):
+        elective_list=electiveMsppm()
+        print(elective_list)
+
+    ##creates dictionary with api calling 
     course_dict=read_dict()
+    
+
     #creates schedule by calling addcourse function
     schedule,units,maxcred = addDropCourse(course_dict)
     time.sleep(0.5)
@@ -291,4 +300,4 @@ def main():
         f.write(' ,total units, %d/%d\n'%(units,maxcred))
 
 if __name__ == '__main__':
-    main()
+    main()    
