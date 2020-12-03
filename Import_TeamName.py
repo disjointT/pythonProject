@@ -254,7 +254,7 @@ def addDropCourse(course_dict,maxcred=54):
                     print('current courses: '+str(courses))
                     print('current units: '+str(units)+'/%d'%maxcred)
                 else:
-                    print('You don\'t have this class on your schedule.')
+                    print('You don\'t have this class in your schedule.')
         add=input('Would you like to Add or Drop (A/D) a course, type quit when finished: ')
 
 
