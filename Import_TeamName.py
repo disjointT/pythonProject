@@ -206,7 +206,7 @@ def search(course_dict,course_num):
 def addDropCourse(course_dict,maxcred=54):
     units=0
     courses=[]
-    add=input('Add/Drop classes (A/D), type quit when finished: ')
+    add=input('Search for classes you would like to Add/Drop(A/D), type quit when finished: ')
     while add.lower()!='quit':
         if add.upper()=='A' or 'A' in add.upper():
             while add.upper()!='DONE' and units<=maxcred:
