@@ -206,10 +206,10 @@ def search(course_dict,course_num):
 def addDropCourse(course_dict,maxcred=54):
     units=0
     courses=[]
-    add=input('Would you like to Add or Drop (A/D) a course, type quit when finished: ')
-    while add.lower()!='quit':
-        if add.upper()=='A' or 'A' in add.upper():
-            while add.upper()!='DONE' and units<=maxcred:
+    value =input('Would you like to Add or Drop (A/D) a course, type quit when finished: ')
+    while value.lower()!='quit':
+        if value.upper()=='A' or 'A' in value.upper():
+            while value.upper()!='DONE' and units<=maxcred:
                 add = str(input('\nSearch for a course number to add XX-XXX (type DONE when finished): '))
                 if add.upper()=='DONE':
                     break
@@ -230,32 +230,35 @@ def addDropCourse(course_dict,maxcred=54):
                         if adding.upper()=='Y':
                             units+=course_dict[add]['Units']
                             courses.append(add)
-                            print('current courses: '+str(courses))
-                            print('current units: '+str(units)+'/%d'%maxcred)
+                            print('*Current courses in planned schedule: '+str(courses))
+                            print('*Current units in planned schedule: '+str(units)+'/%d'%maxcred)
                         adding=input('Do you want to add this class to your schedule? Y/N ')
                     if adding.upper()=='Y':
                         units+=course_dict[add]['Units']
                         courses.append(add)
-                        print('current courses: '+str(courses))
-                        print('current units: '+str(units)+'/%d'%maxcred)
-        if add.upper()=='D' or 'D' in add.upper():
-            print('current courses: '+str(courses))
-            print('current units: '+str(units)+'/%d'%maxcred)
-            while add.upper()!='DONE':
-                add = str(input('\nSearch for a course number to drop XX-XXX (type DONE when finished): '))
-                if add.upper()=='DONE':
-                    break
-                elif add not in course_dict.keys():
-                    print('Invalid course number! Try again')
-                elif add in courses:
-                    drop=str(input('\nDo you want to drop this class from your schedule? '))
-                    if drop.upper()=='Y' or 'Y' in drop.upper():
-                        courses.remove(add)
-                    print('current courses: '+str(courses))
-                    print('current units: '+str(units)+'/%d'%maxcred)
-                else:
-                    print('You don\'t have this class in your schedule.')
-        add=input('Would you like to Add or Drop (A/D) a course, type quit when finished: ')
+                        print('*Current courses in planned schedule: '+str(courses))
+                        print('*Current units in planned schedule: '+str(units)+'/%d'%maxcred)
+        if value.upper()=='D' or 'D' in value.upper():
+            print('*Current courses in planned schedule: '+str(courses))
+            print('*Current units in planned schedule: '+str(units)+'/%d'%maxcred)
+            if len(courses) != 0:
+                while value.upper()!='DONE':
+                    drop = str(input('\nSearch for a course number to drop XX-XXX (type DONE when finished): '))
+                    if drop.upper()=='DONE':
+                        break
+                    elif drop not in course_dict.keys():
+                        print('Invalid course number! Try again')
+                    elif drop in courses:
+                        dropping = str(input('\nDo you want to drop this class from your schedule? '))
+                        if dropping.upper()=='Y' or 'Y' in dropping.upper():
+                            courses.remove(drop)
+                            print('*Current courses in planned schedule: '+str(courses))
+                            print('*Current units in planned schedule: '+str(units)+'/%d'%maxcred)
+                    else:
+                        print('You don\'t have this class in your schedule.')
+            else:
+                print('There are no courses in your schedule to drop.')
+        value = input('Would you like to Add or Drop (A/D) a course, type quit when finished: ')
 
 
     courses.sort()
