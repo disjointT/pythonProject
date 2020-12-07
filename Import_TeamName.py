@@ -94,8 +94,17 @@ def coreClasses(major):
 #read the text file generated from make_dict.py to a dictionary
 def read_dict():
     course_dict={}
-    f=open('course_dict.txt')
-    for line in f.readlines():
+    try:
+        f=open('course_dict.txt')
+    except Exception as e:
+        print('Haven\'t generated local dictionary')
+        try:
+            import make_dict.py
+        except Exception as e:
+            pass
+        f=open('course_dict.txt')
+    lines=f.readlines()
+    for line in lines:
         line=line.split('=')
         val=line[1]
         val=val.strip('{')
@@ -226,11 +235,11 @@ def addDropCourse(course_dict,maxcred=54):
                     adding=input('\nDo you want to add this class to your schedule? Y/N: ')
                     while adding.upper() not in ['Y','N']:
                             print('Invalid input - Please try again')
-                            dropping = str(input('\nDo you want to drop this class from your schedule? Y/N: '))
+                            adding = str(input('\nDo you want to add this class from your schedule? Y/N: '))
                     if adding.upper()=='Y' or 'Y' in adding.upper():
                         units+=course_dict[add]['Units']
                         courses.append(add)
-                        print('Course added succesfully')
+                        print('Course added successfully')
                         print('*Current courses in planned schedule: '+str(courses))
                         print('*Current units in planned schedule: '+str(units)+'/%d'%maxcred)
 

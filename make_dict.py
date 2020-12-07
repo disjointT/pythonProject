@@ -2,7 +2,7 @@ import requests
 from lxml import html
 #get course data from main list
 url = 'https://api.heinz.cmu.edu/courses_api/course_list/'
-print(url)
+print('Grabbing data from %s'%url)
 page = requests.get(url)
 tree = html.fromstring(page.content)
 
@@ -15,9 +15,12 @@ course_units = list(map(int, course_units)) #make ints in case math later
 
 #get course details using new urls
 course_descr = []
-print(len(course_numbers))
+counter=0
+total=len(course_numbers)
 for num in course_numbers:
-    print(num)
+    counter+=1
+    if counter%10==0:
+        print('Generating %d %% of data'%(counter/total*100))
     url = 'https://api.heinz.cmu.edu/courses_api/course_detail/' + num
     page = requests.get(url)
     tree = html.fromstring(page.content)
@@ -26,6 +29,7 @@ for num in course_numbers:
     descr = whole_text[whole_text.index(' ')+1]
     #Remove weird char
     descr = descr.replace('\xa0','')
+    descr = descr.replace('\r\n','')
     #add to descr list
     course_descr.append(descr)
 
@@ -38,6 +42,12 @@ with open('course_dict.txt','w') as f:
     for x in course_dict.keys():
         f.write('%s={'%x)
         vals=course_dict[x]
-        for val in vals.keys():
-            f.write('%s:%s$'%(val,vals[val]))
+        for atr in vals.keys():
+            val=vals[atr]
+            #fix this issue on course 95-758
+            if isinstance(val,str) and len(val)>3 and val[-1]==':':
+                ind=val.rfind('.')
+                val=val[:ind+1]
+            f.write('%s:%s$'%(atr,val))
         f.write('}\n')
+    print('course_dict.txt created')
