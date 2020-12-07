@@ -91,7 +91,7 @@ def coreClasses(major):
             print('%2d. %s' % (count, course))
         return msppmDACoreClasses
 
-
+#read the text file generated from make_dict.py to a dictionary
 def read_dict():
     course_dict={}
     f=open('course_dict.txt')
@@ -252,7 +252,8 @@ def addDropCourse(course_dict,maxcred=54):
                             dropping = str(input('Do you want to drop this class from your schedule? Y/N: '))
                         if dropping.upper()=='Y' or 'Y' in dropping.upper():
                             courses.remove(drop)
-                            print('Course dropped succesfully')
+                            print('Course dropped successfully')
+                            units-=course_dict[drop]['Units']
                             print('*Current courses in planned schedule: '+str(courses))
                             print('*Current units in planned schedule: '+str(units)+'/%d'%maxcred)
                     else:
@@ -282,9 +283,8 @@ def main():
         elective_list=electiveMsppm()
         print(elective_list)
 
-    ##creates dictionary with api calling 
+    ##creates dictionary with api calling
     course_dict=read_dict()
-    
 
     #creates schedule by calling addcourse function
     schedule,units,maxcred = addDropCourse(course_dict)
@@ -301,4 +301,4 @@ def main():
         f.write(' ,total units, %d/%d\n'%(units,maxcred))
 
 if __name__ == '__main__':
-    main()    
+    main()
