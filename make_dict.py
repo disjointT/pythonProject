@@ -30,6 +30,8 @@ for num in course_numbers:
     descr = whole_text[whole_text.index(' ')+1]
     #Remove weird char
     descr = descr.replace('\xa0','')
+    #Remove newline at beginning of descr
+    descr = descr.lstrip()
     #add to descr list
     course_descr.append(descr)
 
